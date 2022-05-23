@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use Budget\Models\BudgetCategory;
+use Budget\Models\BudgetMonth;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use PlannedBudget\Models\BudgetCategory;
-use Support\Models\BudgetMonth;
 
 class BudgetCategoryFactory extends Factory
 {
