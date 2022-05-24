@@ -49,10 +49,14 @@ class BudgetControllerTest extends TestCase
     public function a_user_can_create_a_budget()
     {
         $date = Carbon::parse('+4 weeks');
-        $this->actingAs(User::factory()->create())->post(route('budget.store'), ['month' => $date])->assertRedirect();
+        $this->actingAs(User::factory()->create())->post(route('budget.store'), [
+            'month' => $date,
+            'planned_income' => 3000,
+        ])->assertRedirect();
 
         $this->assertDatabaseHas('budget_months', [
             'month' => $date->format('Y-m-d'),
+            'planned_income' => 300000,
         ]);
     }
 
@@ -61,10 +65,14 @@ class BudgetControllerTest extends TestCase
     {
         $newDate = Carbon::parse('+4 weeks');
         $budget = BudgetMonth::factory()->create();
-        $this->actingAs($budget->user)->patch(route('budget.update', $budget), ['month' => $newDate])->assertRedirect();
+        $this->actingAs($budget->user)->patch(route('budget.update', $budget), [
+            'month' => $newDate,
+            'planned_income' => 200,
+        ])->assertRedirect();
 
         $this->assertDatabaseHas('budget_months', [
             'month' => $newDate->format('Y-m-d'),
+            'planned_income' => 20000,
         ]);
     }
 
@@ -73,7 +81,10 @@ class BudgetControllerTest extends TestCase
     {
         $newDate = Carbon::parse('+4 weeks');
         $budget = BudgetMonth::factory()->create();
-        $this->actingAs(User::factory()->create())->patch(route('budget.update', $budget), ['month' => $newDate])
+        $this->actingAs(User::factory()->create())->patch(route('budget.update', $budget), [
+            'month' => $newDate,
+            'planned_income' => 20,
+        ])
             ->assertForbidden();
     }
 

@@ -31,13 +31,13 @@ class BudgetItemControllerTest extends TestCase
     {
         $item = [
             'name' => 'My Amazing Budget Item',
-            'planned_amount' => 2000,
+            'planned_amount' => 20,
         ];
 
         $this->actingAs($this->category->month->user)->post(route('budget-item.store', $this->category), $item)
             ->assertRedirect();
 
-        $this->assertDatabaseHas('budget_items', $item);
+        $this->assertDatabaseHas('budget_items', array_merge($item, ['planned_amount' => 2000]));
     }
 
     /** @test * */
