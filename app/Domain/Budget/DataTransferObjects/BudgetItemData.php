@@ -3,7 +3,7 @@
 namespace Budget\DataTransferObjects;
 
 use App\Admin\Requests\BudgetItemRequest;
-use Budget\Models\BudgetCategory;
+use Budget\Actions\ConvertDollarsToIntegerAction;
 use Illuminate\Contracts\Support\Arrayable;
 
 class BudgetItemData implements Arrayable
@@ -19,7 +19,7 @@ class BudgetItemData implements Arrayable
     ): BudgetItemData {
         return new BudgetItemData(
             name: $request->get('name'),
-            planned_amount: $request->get('planned_amount')
+            planned_amount: (new ConvertDollarsToIntegerAction($request->get('planned_amount')))->execute(),
         );
     }
     public function toArray(): array
