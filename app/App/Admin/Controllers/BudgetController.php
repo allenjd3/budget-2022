@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Requests\BudgetMonthRequest;
 use App\Admin\ViewModels\BudgetFormViewModel;
+use App\Admin\ViewModels\BudgetMonthShowViewModel;
 use Budget\DataTransferObjects\BudgetMonthData;
 use Budget\Models\BudgetMonth;
 use Illuminate\Http\RedirectResponse;
@@ -26,9 +27,7 @@ class BudgetController extends Controller
     {
         $this->authorize('view', $budget);
 
-        return view('budget.show', [
-            'budget' => $budget->load('categories'),
-        ]);
+        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories'))));
     }
 
     public function create(): View
