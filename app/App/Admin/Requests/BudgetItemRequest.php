@@ -10,7 +10,7 @@ class BudgetItemRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:3',
-            'planned_amount' => 'integer|required',
+            'planned_amount' => 'numeric|required',
         ];
     }
 }

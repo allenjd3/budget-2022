@@ -9,7 +9,7 @@
         name="{{ $name }}"
         value="{{ $value }}"
         type="{{ $type }}"
-        class="w-full border-gray-300"
+        {{ $attributes->merge(['class' => 'w-full border-gray-300']) }}
     >
     @error($name)
         <div class="text-sm text-red-600">{{ $message }}</div>

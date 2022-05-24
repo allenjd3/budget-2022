@@ -13,6 +13,7 @@
                     name="planned_amount"
                     label="Planned"
                     type="number"
+                    step="0.01"
                     :value="old('planned')"
                 />
                 <x-forms.button>New Item</x-forms.button>

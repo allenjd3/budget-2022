@@ -10,7 +10,13 @@
                     name="month"
                     :value="old('month')"
                 />
-
+                <x-forms.input
+                    type="number"
+                    step="0.01"
+                    label="Planned Income"
+                    name="planned_income"
+                    :value="old('planned_income')"
+                    />
                 <x-forms.button>New Month</x-forms.button>
             </x-forms.wrapper>
         </form>
