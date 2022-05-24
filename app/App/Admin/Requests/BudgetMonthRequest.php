@@ -14,6 +14,11 @@ class BudgetMonthRequest extends FormRequest
                 'date',
                 'after_or_equal:' . now()->format('Y-m-d'),
             ],
+            'planned_income' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
         ];
     }
 }

@@ -11,6 +11,7 @@ class CreateBudgetMonthsTable extends Migration
         Schema::create('budget_months', function (Blueprint $table) {
             $table->id();
             $table->date('month');
+            $table->integer('planned_income');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
