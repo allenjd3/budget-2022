@@ -2,6 +2,7 @@
 
 namespace Budget\Models;
 
+use Attribute;
 use Authentication\Models\User;
 use Budget\Actions\ConvertIntegerToDollarsAction;
 use Database\Factories\BudgetMonthFactory;
@@ -39,11 +40,16 @@ class BudgetMonth extends Model
             $this->join('budget_categories', 'budget_months.id', '=', 'budget_categories.budget_month_id')
             ->join('budget_items', 'budget_categories.id', '=', 'budget_items.budget_category_id')
             ->sum('planned_amount')
-        ))->execute();
+        ));
     }
 
-    public function getTotalPlannedIncomeAttribute()
+    public function getPlannedIncome(): string
     {
         return (new ConvertIntegerToDollarsAction($this->planned_income))->execute();
+    }
+
+    public function getFormattedPlannedIncome(): string
+    {
+        return (new ConvertIntegerToDollarsAction($this->planned_income));
     }
 }

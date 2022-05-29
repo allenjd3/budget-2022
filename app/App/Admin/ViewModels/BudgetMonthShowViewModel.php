@@ -4,6 +4,7 @@ namespace App\Admin\ViewModels;
 
 use Budget\Models\BudgetMonth;
 use Illuminate\Contracts\Support\Arrayable;
+use JetBrains\PhpStorm\ArrayShape;
 
 class BudgetMonthShowViewModel implements Arrayable
 {
@@ -14,7 +15,8 @@ class BudgetMonthShowViewModel implements Arrayable
         $this->budget = $budget;
     }
 
-    public function toArray()
+    #[ArrayShape(['budget' => "\Budget\Models\BudgetMonth"])]
+    public function toArray(): array
     {
         return [
             'budget' => $this->budget,

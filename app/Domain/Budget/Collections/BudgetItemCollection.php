@@ -11,7 +11,7 @@ class BudgetItemCollection extends Collection
     public function withPlannedAmountInDollars(): self
     {
         return $this->map(function (BudgetItem $budget) {
-            $budget['planned_in_dollars'] = (new ConvertIntegerToDollarsAction($budget->planned_amount))->execute();
+            $budget['planned_in_dollars'] = (new ConvertIntegerToDollarsAction($budget->planned_amount));
             return $budget;
         });
     }

@@ -5,6 +5,7 @@ namespace App\Admin\ViewModels;
 use Budget\Models\BudgetCategory;
 use Budget\Models\BudgetItem;
 use Illuminate\Contracts\Support\Arrayable;
+use JetBrains\PhpStorm\ArrayShape;
 
 class BudgetItemFormViewModel implements Arrayable
 {
@@ -17,17 +18,15 @@ class BudgetItemFormViewModel implements Arrayable
         $this->item = $item ?? new BudgetItem;
     }
 
-    public function toArray()
+    #[ArrayShape([
+        'category' => "\Budget\Models\BudgetCategory|null",
+        'item' => "\Budget\Models\BudgetItem",
+        ])]
+    public function toArray(): array
     {
-        if ($this->category) {
-            return [
-                'category' => $this->category,
-                'item' => $this->item,
-            ];
-        } else {
-            return [
-                'item' => $this->item,
-            ];
-        }
+        return [
+            'category' => $this->category,
+            'item' => $this->item,
+        ];
     }
 }

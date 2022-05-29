@@ -1,8 +1,12 @@
+@php
+    /** @var \Budget\Models\BudgetCategory $category */
+@endphp
+
 <x-dashboard>
     <x-card>
         <h1 class="text-4xl mb-6">Create New Category</h1>
 
-        <form action="{{ route('budget-category.update') }}" method="POST">
+        <form action="{{ route('budget-category.update', $category) }}" method="POST">
             <x-forms.wrapper>
                 <x-forms.input
                     name="name"

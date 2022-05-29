@@ -1,16 +1,25 @@
+@php
+  /** @var \Budget\Models\BudgetMonth $budget */
+@endphp
+
 <x-dashboard>
 <div class="flex flex-col gap-3">
     <x-card>
         <div class="flex justify-between">
-            <h1 class="text-3xl">{{ $budget->month->format('F - Y') }}</h1>
-
-            <a class="py-2 px-4 bg-gray-800 text-gray-50" href="{{ route('budget-category.create', $budget) }}">Add Category</a>
+            <div>
+                <h1 class="text-3xl">{{ $budget->month->format('F - Y') }}</h1>
+                <a href="{{ route('budget.edit', $budget) }}">Edit</a>
+            </div>
+            <div>
+                <a class="py-2 px-4 bg-gray-800 text-gray-50" href="{{ route('budget-category.create', $budget) }}">Add Category</a>
+            </div>
         </div>
     </x-card>
     <x-card>
         <h1 class="text-2xl">Planned Budget</h1>
         <div>
-            Total Planned: {{ $budget->total_planned }}
+            <div>Total Planned: {{ $budget->total_planned }}</div>
+            <div>Total Planned Income: {{ $budget->getFormattedPlannedIncome() }}</div>
         </div>
     </x-card>
 

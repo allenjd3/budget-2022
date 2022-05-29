@@ -1,3 +1,6 @@
+@php
+    /** @var \Budget\Models\BudgetItem $item */
+@endphp
 <x-dashboard>
     <x-card>
         <h1 class="text-4xl mb-6">Create New Item</h1>
