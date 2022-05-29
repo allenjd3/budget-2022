@@ -27,7 +27,7 @@ class BudgetController extends Controller
     {
         $this->authorize('view', $budget);
 
-        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories'))));
+        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories.items.transactions'))));
     }
 
     public function create(): View

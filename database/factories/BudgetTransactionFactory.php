@@ -2,19 +2,21 @@
 
 namespace Database\Factories;
 
-use Budget\Models\BudgetCategory;
 use Budget\Models\BudgetMonth;
+use Budget\Models\BudgetTransaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BudgetCategoryFactory extends Factory
+class BudgetTransactionFactory extends Factory
 {
-    protected $model = BudgetCategory::class;
+    protected $model = BudgetTransaction::class;
 
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->words(2, true),
+            'amount' => rand(1, 20000),
             'budget_month_id' => BudgetMonth::factory(),
+            'budget_item_id' => null,
         ];
     }
 }

@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use Authentication\Models\User;
+use Budget\Models\BudgetCategory;
+use Budget\Models\BudgetItem;
 use Budget\Models\BudgetMonth;
+use Budget\Models\BudgetTransaction;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +23,17 @@ class DatabaseSeeder extends Seeder
              'email' => 'jacques2186@yahoo.com',
          ]);
 
-         $user->budgetMonths()->create(BudgetMonth::factory()->make()->toArray());
+         BudgetMonth::factory()
+             ->state(['user_id' => $user->id])
+             ->has(
+                 BudgetCategory::factory()
+                     ->has(
+                         BudgetItem::factory()->has(BudgetTransaction::factory()->state(['budget_month_id' => 1])->count(5), 'transactions')->count(3),
+                         'items'
+                     )
+                     ->count(5),
+                 'categories'
+             )
+             ->create();
     }
 }
