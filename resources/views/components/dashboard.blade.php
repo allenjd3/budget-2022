@@ -11,8 +11,9 @@
 </head>
 <body>
     <x-nav></x-nav>
-    <div class="p-4 max-w-4xl mt-8 mx-auto">
-        {{ $slot }}
+    <div class="flex gap-3 p-4 max-w-7xl mt-8 mx-auto">
+        <div class="w-3/4">{{ $slot }}</div>
+        <div class="w-1/4">{{ $sidebar }}</div>
     </div>
 </body>
 </html>

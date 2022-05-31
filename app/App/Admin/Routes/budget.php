@@ -3,8 +3,10 @@
 use App\Admin\Controllers\BudgetCategoryController;
 use App\Admin\Controllers\BudgetController;
 use App\Admin\Controllers\BudgetItemController;
+use App\Admin\Controllers\BudgetTransactionController;
 
 Route::middleware('auth')->group(function () {
+    Route::post('budget/{budget}/transactions', [BudgetTransactionController::class, 'store'])->name('budget-transactions.store');
     Route::get('budget/{budget}/categories/create', [BudgetCategoryController::class, 'create'])->name('budget-category.create');
     Route::patch('/categories/{category}', [BudgetCategoryController::class, 'update'])->name('budget-category.update');
     Route::post('budget/{budget}/categories', [BudgetCategoryController::class, 'store'])->name('budget-category.store');

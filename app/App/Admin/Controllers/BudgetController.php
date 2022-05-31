@@ -26,8 +26,14 @@ class BudgetController extends Controller
     public function show(BudgetMonth $budget): View
     {
         $this->authorize('view', $budget);
+        $transactions = $budget
+            ->transactions()
+            ->orderBy('created_at', 'DESC')
+            ->limit(10)
+            ->get()
+            ->withAmountInDollars();
 
-        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories.items.transactions'))));
+        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories.items'), $transactions)));
     }
 
     public function create(): View

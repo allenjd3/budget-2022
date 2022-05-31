@@ -6,7 +6,6 @@ use Budget\Actions\CalculateRemainingPlannedAction;
 use Budget\Actions\ConvertIntegerToDollarsAction;
 use Budget\Models\BudgetItem;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class BudgetItemCollection extends Collection
 {
@@ -21,7 +20,11 @@ class BudgetItemCollection extends Collection
     public function withTransactionTotals(): self
     {
         return $this->map(function (BudgetItem $item) {
-            $item['transactions_remaining'] = (new CalculateRemainingPlannedAction($item->planned_amount, $item->transactions->sum('amount')));
+            if (! $item->transactions_sum_amount) {
+                $item['transactions_remaining'] = (new CalculateRemainingPlannedAction($item->planned_amount, $item->transactions()->sum('amount')));
+            } else {
+                $item['transactions_remaining'] = (new CalculateRemainingPlannedAction($item->planned_amount, $item->transactions_sum_amount));
+            }
             return $item;
         });
     }

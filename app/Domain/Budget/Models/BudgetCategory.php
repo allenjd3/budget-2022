@@ -24,6 +24,6 @@ class BudgetCategory extends Model
 
     public function items()
     {
-        return $this->hasMany(BudgetItem::class);
+        return $this->hasMany(BudgetItem::class)->withSum('transactions', 'amount');
     }
 }
