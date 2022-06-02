@@ -12,6 +12,7 @@ class CreateBudgetTransactionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('amount');
+            $table->dateTime('date_purchased')->default(DB::raw('NOW()'));
             $table->foreignId('budget_month_id')->constrained();
             $table->unsignedBigInteger('budget_item_id')->nullable();
             $table->timestamps();

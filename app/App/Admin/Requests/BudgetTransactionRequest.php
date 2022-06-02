@@ -17,6 +17,10 @@ class BudgetTransactionRequest extends FormRequest
                 'numeric',
                 'required',
             ],
+            'date_purchased' => [
+                'date',
+                'nullable',
+            ],
             'budget_item_id' => [
                 'nullable',
                 'integer',

@@ -16,6 +16,7 @@ class BudgetTransactionFactory extends Factory
             'name' => $this->faker->words(2, true),
             'amount' => rand(1, 20000),
             'budget_month_id' => BudgetMonth::factory(),
+            'date_purchased' => now(),
             'budget_item_id' => null,
         ];
     }

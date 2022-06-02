@@ -24,12 +24,19 @@
                             step="0.01"
                             value="{{ old('transactions[amount]') }}"
                         />
+                        <x-forms.input
+                            name="date_purchased"
+                            label="Date:"
+                            type="date"
+                            value="{{ old('transactions[date_purchased]') }}"
+                        />
+
                         <div>
                             <div><label for="item">Associate Item</label></div>
                             <div>
                                 <select id="item">
-                                    @foreach ($budget->categories->map->items->flatten() as $item)
-                                        <option>{{ $item->name }}</option>
+                                    @foreach ($budget->categories->map->items->flatten()->prepend((object) ['name' => '', 'id' => null]) as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -66,6 +73,12 @@
             <div>
                 <div>Total Planned: {{ $budget->total_planned }}</div>
                 <div>Total Planned Income: {{ $budget->getFormattedPlannedIncome() }}</div>
+            </div>
+        </x-card>
+        <x-card>
+            <h1 class="text-2xl">Actual Budget</h1>
+            <div>
+                Total Spent: {{ (new \Budget\Actions\ConvertIntegerToDollarsAction($budget->transactions_sum_amount)) }}
             </div>
         </x-card>
 
