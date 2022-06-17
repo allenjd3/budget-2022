@@ -73,12 +73,15 @@
             <div>
                 <div>Total Planned: {{ $budget->total_planned }}</div>
                 <div>Total Planned Income: {{ $budget->getFormattedPlannedIncome() }}</div>
+                <div>Remaining: {{ $plannedAmountRemainder }}</div>
             </div>
         </x-card>
         <x-card>
             <h1 class="text-2xl">Actual Budget</h1>
             <div>
-                Total Spent: {{ (new \Budget\Actions\ConvertIntegerToDollarsAction($budget->transactions_sum_amount)) }}
+                <div>Total Spent: {{ $budget->getFormattedTransactionSumAmount() }}</div>
+                <div>Paycheck Total: {{ $budget->getFormattedActualIncome() }}</div>
+                <div>Remaining: {{ $actualAmountRemainder }}</div>
             </div>
         </x-card>
 

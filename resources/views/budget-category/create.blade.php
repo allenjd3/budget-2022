@@ -9,8 +9,8 @@
                     label="Name"
                     :value="old('name')"
                 />
-                <x-forms.button>New Category</x-forms.button>
             </x-forms.wrapper>
+            <x-forms.button>New Category</x-forms.button>
         </form>
     </x-card>
 </x-dashboard>

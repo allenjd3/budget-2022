@@ -33,7 +33,7 @@ class BudgetController extends Controller
             ->get()
             ->withAmountInDollars();
 
-        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories.items')->withSum('transactions', 'amount')->firstOrFail(), $transactions)));
+        return view('budget.show', (new BudgetMonthShowViewModel($budget->load('categories.items', 'paychecks')->withSum('transactions', 'amount')->firstOrFail(), $transactions)));
     }
 
     public function create(): View

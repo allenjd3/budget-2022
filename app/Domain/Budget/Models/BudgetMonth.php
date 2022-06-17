@@ -2,6 +2,7 @@
 
 namespace Budget\Models;
 
+use App\Exceptions\TransactionSumNotEagerLoadedException;
 use Attribute;
 use Authentication\Models\User;
 use Budget\Actions\ConvertIntegerToDollarsAction;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
 
 class BudgetMonth extends Model
 {
@@ -41,6 +43,11 @@ class BudgetMonth extends Model
         return $this->hasMany(BudgetTransaction::class);
     }
 
+    public function paychecks(): HasMany
+    {
+        return $this->hasMany(Paycheck::class);
+    }
+
     public function getTotalPlannedAttribute(): ConvertIntegerToDollarsAction|string
     {
         return (new ConvertIntegerToDollarsAction(
@@ -58,5 +65,19 @@ class BudgetMonth extends Model
     public function getFormattedPlannedIncome(): ConvertIntegerToDollarsAction|string
     {
         return (new ConvertIntegerToDollarsAction($this->planned_income));
+    }
+
+    public function getFormattedActualIncome(): ConvertIntegerToDollarsAction|string
+    {
+        return (new ConvertIntegerToDollarsAction($this->paychecks()->sum('amount')));
+    }
+
+    public function getFormattedTransactionSumAmount(): ConvertIntegerToDollarsAction|string
+    {
+        if (! $this->transactions_sum_amount) {
+            Log::warning('You are not eager loading the transaction sum amount on BudgetMonth');
+            return (new ConvertIntegerToDollarsAction($this->transactions()->sum('amount')));
+        }
+        return (new ConvertIntegerToDollarsAction($this->transactions_sum_amount));
     }
 }

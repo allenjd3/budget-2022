@@ -13,7 +13,9 @@
     <x-nav></x-nav>
     <div class="flex gap-3 p-4 max-w-7xl mt-8 mx-auto">
         <div class="w-3/4">{{ $slot }}</div>
-        <div class="w-1/4">{{ $sidebar }}</div>
+        @if (isset($sidebar))
+            <div class="w-1/4">{{ $sidebar }}</div>
+        @endif
     </div>
 </body>
 </html>
