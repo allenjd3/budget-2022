@@ -70,18 +70,42 @@
         </x-card>
         <x-card>
             <h1 class="text-2xl">Planned Budget</h1>
-            <div>
-                <div>Total Planned: {{ $budget->total_planned }}</div>
-                <div>Total Planned Income: {{ $budget->getFormattedPlannedIncome() }}</div>
-                <div>Remaining: {{ $plannedAmountRemainder }}</div>
+            <div class="flex justify-between gap-2 mt-4">
+                <x-info
+                    :amount-in-dollars="$budget->total_planned"
+                    label="Total Planned"
+                    type="planned"
+                />
+                <x-info
+                    :amount-in-dollars="$budget->getFormattedPlannedIncome()"
+                    label="Total Planned Income"
+                    type="subtracted"
+                />
+                <x-info
+                    :amount-in-dollars="$plannedAmountRemainder"
+                    label="Remaining"
+                    type="sufficient"
+                />
             </div>
         </x-card>
         <x-card>
             <h1 class="text-2xl">Actual Budget</h1>
-            <div>
-                <div>Total Spent: {{ $budget->getFormattedTransactionSumAmount() }}</div>
-                <div>Paycheck Total: {{ $budget->getFormattedActualIncome() }}</div>
-                <div>Remaining: {{ $actualAmountRemainder }}</div>
+            <div class="flex justify-between gap-2 mt-4">
+                <x-info
+                    :amount-in-dollars="$budget->getFormattedTransactionSumAmount()"
+                    label="Total Spent"
+                    type="planned"
+                />
+                <x-info
+                    :amount-in-dollars="$budget->getFormattedActualIncome()"
+                    label="Paycheck Total"
+                    type="subtracted"
+                />
+                <x-info
+                    :amount-in-dollars="$actualAmountRemainder"
+                    label="Remaining"
+                    type="deficient"
+                />
             </div>
         </x-card>
 
