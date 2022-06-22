@@ -25,7 +25,7 @@ class BudgetTransactionData implements Arrayable
             name: $request->get('name'),
             amount: (new ConvertDollarsToIntegerAction($request->get('amount')))->execute(),
             date_purchased: Carbon::parse($request->get('date_purchased')),
-            budget_item_id: $request->get('budget_category_id'),
+            budget_item_id: $request->get('budget_item_id'),
         );
 
     }
