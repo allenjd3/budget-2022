@@ -18,6 +18,11 @@ class BudgetTransaction extends Model
         return new BudgetTransactionFactory();
     }
 
+    public function month()
+    {
+        return $this->belongsTo(BudgetMonth::class, 'budget_month_id');
+    }
+
     public function newCollection(array $models = []): BudgetTransactionCollection
     {
         return new BudgetTransactionCollection($models);
